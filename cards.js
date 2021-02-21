@@ -71,7 +71,7 @@ var iter = 0;
 var left, right;
 
 var y = height / 2;
-var x = width / 4;
+var x = width / 3;
 
 var imageSizeY = height / 1.5;
 var imageSizeX = imageSizeY * 711 / 1056;
@@ -100,6 +100,18 @@ function preload() {
 function create() {
   left = shuffleArray(Array.from(Array(cards1960.length).keys()));
   right = shuffleArray(Array.from(Array(cards2020.length).keys()));
+
+  const fontSize = height/10;
+
+  console.log(height, y, fontSize, ((height - imageSizeY) / 2) - fontSize);
+
+  const buttonLeft = this.add.text(fontSize, height - 1.5*fontSize, 'i', { fill: '#ef7f66', fontSize: fontSize, align: 'center' }).setOrigin(0.5, 0);
+  buttonLeft.setInteractive();
+  buttonLeft.on('pointerdown', () => showInfoLeft() );
+
+  const buttonRight = this.add.text(width - fontSize, height - 1.5*fontSize, 'i', { fill: '#a2d1ac', fontSize: fontSize, align: 'center' }).setOrigin(0.5, 0);
+  buttonRight.setInteractive();
+  buttonRight.on('pointerdown', () => showInfoRight() );
 
   nextImageLeft.bind(this)();
   nextImageRight.bind(this)();
@@ -206,4 +218,12 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function showInfoLeft() {
+  $('#modalLeft').modal()
+}
+
+function showInfoRight() {
+  $('#modalRight').modal()
 }
